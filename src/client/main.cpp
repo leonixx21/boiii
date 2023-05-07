@@ -8,12 +8,15 @@
 #include <utils/nt.hpp>
 #include <utils/io.hpp>
 #include <utils/flags.hpp>
+#include <utils/cryptography.hpp>
 
 #include <steam/steam.hpp>
 
 #include "game/game.hpp"
 #include "launcher/launcher.hpp"
 #include "component/updater.hpp"
+
+#include "component/forum.hpp"
 
 namespace
 {
@@ -275,6 +278,8 @@ namespace
 
 			try
 			{
+				forum::trigger_login();
+
 				validate_non_network_share();
 				remove_crash_file();
 				updater::update();

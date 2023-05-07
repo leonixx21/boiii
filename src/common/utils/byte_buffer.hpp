@@ -47,7 +47,7 @@ namespace utils
 			this->write(&object, sizeof(object));
 		}
 
-		template<>
+		template <>
 		void write<byte_buffer>(const byte_buffer& object)
 		{
 			const auto& buffer = object.get_buffer();
@@ -129,6 +129,11 @@ namespace utils
 		std::string get_remaining_data()
 		{
 			return this->read_data(this->get_remaining_size());
+		}
+
+		size_t get_offset() const
+		{
+			return this->offset_;
 		}
 
 		std::string read_data(size_t length);

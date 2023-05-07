@@ -17,7 +17,6 @@
 #include <utils/smbios.hpp>
 #include <utils/byte_buffer.hpp>
 #include <utils/info_string.hpp>
-#include <utils/cryptography.hpp>
 
 #include <game/fragment_handler.hpp>
 
@@ -86,12 +85,6 @@ namespace auth
 			}
 
 			return entropy;
-		}
-
-		utils::cryptography::ecc::key& get_key()
-		{
-			static auto key = utils::cryptography::ecc::generate_key(512, get_key_entropy());
-			return key;
 		}
 
 		bool is_second_instance()
@@ -303,6 +296,12 @@ namespace auth
 			game::SV_DirectConnect(address);
 			handle_new_player(address);
 		}
+	}
+
+	utils::cryptography::ecc::key& get_key()
+	{
+		static auto key = utils::cryptography::ecc::generate_key(512, get_key_entropy());
+		return key;
 	}
 
 	uint64_t get_guid()
