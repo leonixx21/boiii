@@ -124,13 +124,39 @@
         ><span style="color: #dc2626">I</span>
       </h1>
       <div class="button" onclick="window.external.runGame()">Play</div>
+      <div id="forum" class="button"></div>
       <div class="button" onclick="window.external.openUrl('https://boiii.re')">
         About
       </div>
     </div>
 
     <script>
-      window.onload = function () {};
+      function triggerForumAction() {
+        if (window.external.isLoggedIn()) {
+          window.external.logOut();
+        } else {
+          window.external.logIn();
+        }
+
+        updateForumButton();
+      }
+
+      function updateForumButton() {
+        var button = document.getElementById("forum");
+        if (window.external.isLoggedIn()) {
+          button.textContent = "Logout";
+        } else {
+          button.textContent = "Login";
+        }
+      }
+
+      window.onload = function () {
+        var button = document.getElementById("forum");
+        button.onclick = triggerForumAction;
+
+        setInterval(updateForumButton, 1000);
+        updateForumButton();
+      };
 
       document.onkeydown = fkey;
       document.onkeypress = fkey;

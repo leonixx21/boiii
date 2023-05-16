@@ -2,6 +2,7 @@
 #include <utils/nt.hpp>
 
 #include "launcher.hpp"
+#include "../component/forum.hpp"
 #include "html/html_window.hpp"
 
 #include <game/game.hpp>
@@ -34,6 +35,26 @@ namespace launcher
 				run_game = true;
 				window.get_window()->close();
 				return {};
+			});
+
+		window.get_html_frame()->register_callback(
+			"logOut", [&](const std::vector<html_argument>& /*params*/) -> CComVariant
+			{
+				forum::logout();
+				return {};
+			});
+
+		window.get_html_frame()->register_callback(
+			"logIn", [&](const std::vector<html_argument>& /*params*/) -> CComVariant
+			{
+				forum::perform_login();
+				return {};
+			});
+
+		window.get_html_frame()->register_callback(
+			"isLoggedIn", [&](const std::vector<html_argument>& /*params*/) -> CComVariant
+			{
+				return forum::is_authenticated();
 			});
 
 		//window.get_html_frame()->load_html(utils::nt::load_resource(MENU_MAIN));

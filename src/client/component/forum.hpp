@@ -12,7 +12,8 @@ namespace forum
 
 	using user_id_type = uint32_t;
 
-	bool trigger_login();
+	void logout();
+	void perform_login(std::function<void(bool)> callback = {});
 
 	bool is_authenticated();
 

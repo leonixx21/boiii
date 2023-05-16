@@ -278,8 +278,6 @@ namespace
 
 			try
 			{
-				forum::trigger_login();
-
 				validate_non_network_share();
 				remove_crash_file();
 				updater::update();
